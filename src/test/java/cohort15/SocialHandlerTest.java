@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.InputMismatchException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SocialHandlerTest
@@ -15,10 +16,11 @@ class SocialHandlerTest
     {
         String name1 = "JohnnyB";
         String name2 = "Dougat";
-        socialHandler.addGuy(name1);
-        socialHandler.addGuy(name2);
+        String concatName1 = socialHandler.addGuy(name1);
+        String concatName2 = socialHandler.addGuy(name2);
         assert(socialHandler.getGuy("@johnnyb") != null);
-        assertNotEquals(socialHandler.getGuy("@johnnyb"), socialHandler.getGuy("@dougat"));
+        assertNotEquals(socialHandler.getGuy(concatName1), socialHandler.getGuy(concatName2));
+        assertEquals(socialHandler.getGuy(concatName1).getHandle(), name1);
     }
     @Test
     void emptyTest()

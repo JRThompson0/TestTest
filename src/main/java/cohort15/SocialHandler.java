@@ -17,7 +17,15 @@ public class SocialHandler
         String bufferedString = "@" + userNameMaybe;
         if (daMap.containsKey(bufferedString.toLowerCase()))
             throw new InputMismatchException("Handle already taken!");
-        daMap.put(bufferedString.toLowerCase(), new User(bufferedString));
+
+
+        //the User object created will store the string as it was entered, such that we will see the
+        //proper capitalization on the user's profile. Jacob -> @jacob in the map, but you'll still see "Jacob"
+        // in certain spots
+        daMap.put(bufferedString.toLowerCase(), new User(userNameMaybe));
+
+
+
         return bufferedString.toLowerCase();
     }
     public User getGuy(String handle)

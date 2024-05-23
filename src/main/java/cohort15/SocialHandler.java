@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 public class SocialHandler
 {
     HashMap<String,User> daMap = new HashMap<String,User>();
-    private ArrayList<User> secretForeverLog = new ArrayList<User>();
+    private final ArrayList<User> secretForeverLog = new ArrayList<User>();
     public String addGuy(String userNameMaybe)
     {
         if (userNameMaybe == null)

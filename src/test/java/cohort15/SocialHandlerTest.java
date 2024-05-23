@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SocialHandlerTest
 {
-    static SocialHandler socialHandler = new SocialHandler();
+    SocialHandler socialHandler = new SocialHandler();
     @Test
     void addGuyTests()
     {
@@ -46,5 +46,48 @@ class SocialHandlerTest
         Assertions.assertThrows(InputMismatchException.class,
                 ()->socialHandler.addGuy("123456789"),
                 "Should throw exepction when username already in system entered.");
+    }
+    @Test
+    void handleChangeTest()
+    {
+        String handle1 = socialHandler.addGuy("bougat");
+        User daGuy = socialHandler.getGuy(handle1);
+        String handle2 = socialHandler.changeHandle("douglass",daGuy);
+        String handleGrab = daGuy.getLowerCaseHandle();
+        assertEquals(handle2,handleGrab);
+        //System.out.println(daGuy);
+        //System.out.println(socialHandler.getGuy("@douglass"));
+        //System.out.println(socialHandler.daMap.toString());
+        assertEquals("@bougat",socialHandler.addGuy("bougat"));
+    }
+    @Test
+    void handleChangeFails()
+    //all of the exceptions from adding a person apply to
+    // changing a name, which gives a guideline for testing.
+    {
+        String name1 = "123456789";
+        String name2 = "toshi";
+        socialHandler.addGuy(name1);
+        socialHandler.addGuy(name2);
+        User daGuy = socialHandler.getGuy("@"+name1);
+        User daOtherguy = socialHandler.getGuy("@"+name2);
+
+        Assertions.assertThrows(InputMismatchException.class,
+                ()->socialHandler.changeHandle("123456789",daGuy),
+                "Should throw exepction when username remains the same.");
+
+        Assertions.assertThrows(InputMismatchException.class,
+        ()-> socialHandler.changeHandle("123456789",daOtherguy),
+        "Should throw exepction when username already in system entered.");
+
+        Assertions.assertThrows(InputMismatchException.class,
+                ()->socialHandler.addGuy("12345678912312"),
+                "Should throw exception when username is too long.");
+        Assertions.assertThrows(InputMismatchException.class,
+                ()->socialHandler.changeHandle("",daGuy),
+                "Should throw exepction when blank or null entered");
+        Assertions.assertThrows(NullPointerException.class,
+                ()->socialHandler.changeHandle(null,daOtherguy),
+                "Should throw exepction when blank or null entered");
     }
 }

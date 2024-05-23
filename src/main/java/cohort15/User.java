@@ -4,14 +4,10 @@ public class User
 {
 
     String handle;
-    String nickName;
-    public String getNickName()
+    String originalHandle;
+    public String getOriginalHandle()
     {
-        return nickName;
-    }
-    public void setNickName(String nickName)
-    {
-        this.nickName=nickName;
+        return originalHandle;
     }
     public String getHandle()
     {
@@ -28,6 +24,6 @@ public class User
     public User(String handle)
     {
         this.handle = handle;
-        this.nickName = handle;
+        this.originalHandle = handle;
     }
 }

@@ -90,4 +90,14 @@ class SocialHandlerTest
                 ()->socialHandler.changeHandle(null,daOtherguy),
                 "Should throw exepction when blank or null entered");
     }
+    @Test
+    void writeFileTest()
+    {
+        socialHandler.addGuy("Michael");
+        socialHandler.addGuy("Tychael");
+        socialHandler.addGuy("BooGIE");
+        socialHandler.addGuy("GOOOOOOPR");
+        socialHandler.fileWrite("logFile.txt");
+        SocialHandler.readFile("logFile.txt");
+    }
 }

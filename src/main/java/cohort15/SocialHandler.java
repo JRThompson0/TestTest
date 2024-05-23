@@ -1,8 +1,10 @@
 package cohort15;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.InputMismatchException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class SocialHandler
 {
@@ -70,5 +72,49 @@ public class SocialHandler
     public ArrayList<User> getSecretForeverLog()
     {
         return secretForeverLog;
+    }
+    public static void makeFile(String fileName)
+    {
+        try {
+            File myObj = new File(fileName);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+    }
+    public void fileWrite(String fileName)
+    {
+        SocialHandler.makeFile(fileName);
+        try {
+            FileWriter myWriter = new FileWriter(fileName);
+            myWriter.write("Social Handler Log");
+            myWriter.write("\n");
+            for (Map.Entry<String, User> stringUserEntry : daMap.entrySet())
+            {
+                myWriter.write(stringUserEntry.getKey()+": "+stringUserEntry.getValue().getHandle()+"\n");
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+    }
+    public static void readFile(String fileName)
+    {
+        try {
+            File myObj = new File(fileName);
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+        }
     }
 }
